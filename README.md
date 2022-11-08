@@ -1,3 +1,4 @@
-# DASPRO_Tugas3
-Silahkan kumpulkan tugas ketiga.
-Kerjakan sesuai yang abang terangkan, yang rapi, jangan pelit komentar.
+# DASPRO_2
+Silahkan kerjakan tugas kedua.
+Ingat Koding HARUS RAPI.
+Terima kasih.
