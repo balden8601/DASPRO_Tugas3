@@ -1,0 +1,55 @@
+Program vowelsconsonants;
+uses crt;
+var
+ruf : string;
+
+begin
+        clrscr;
+        write  ('Masukkan huruf : ');
+        readln (ruf);
+
+        case (ruf) of
+                'a' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'A' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'i' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'I' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'u' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'U' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'e' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'E' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'o' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+                'O' : write ('Huruf ', ruf, ' merupakan huruf vokal');
+
+                'b'..'d' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'f'..'h' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'j'..'n' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'p'..'t' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'v'..'z' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'B'..'D' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'F'..'H' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'J'..'N' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'P'..'T' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+                'V'..'Z' : write ('Huruf ' , ruf, ' merupakan huruf kosonan');
+        else
+                write (ruf, ' bukan merupakan huruf');
+        end;
+        readln;
+end.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
