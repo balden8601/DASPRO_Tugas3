@@ -1,4 +1,4 @@
-program _2;
+program _3;
 uses crt;
 var 
 i,a,b : integer;
