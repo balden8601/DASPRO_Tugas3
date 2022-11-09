@@ -1,0 +1,42 @@
+program tugas_lab_no_4;
+
+uses crt;
+var x : integer;
+label a,b;
+
+begin
+clrscr;
+b:
+write('masukkan angka 1-20 untuk mencoba: ');
+readln(x);
+ if (x<=20) then
+    begin
+      goto a;
+    end
+
+ else
+    begin
+     write('angka tidak dalam range 1-20');
+     readln;
+      goto b;
+    end;
+
+ a: if (x mod 2 = 0) then
+    begin
+     write('angka tersebut genap');
+    end
+ else
+    begin
+     write('angka tersebut ganjil');
+    end;
+    readln;
+    end.
+
+
+
+
+
+
+
+
+
