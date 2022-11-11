@@ -1,0 +1,21 @@
+program nomor2;
+uses crt;
+var i,b,c:integer;
+
+  begin
+    for i:= 1 to 5 do
+  begin
+  for b:= 1 to i do
+  begin
+  if(i mod 2 = 1) then
+  write(' *');
+  end;
+  for c:= 1 to i do
+  begin
+  if( i mod 2 = 0 ) then
+  write(' ',i);
+  end;
+  writeln;
+  end;
+  readln;
+  end.
