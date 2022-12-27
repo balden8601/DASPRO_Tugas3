@@ -1,0 +1,300 @@
+function frame0(){
+
+
+    var mc = exportRoot.mainMC
+    exportRoot.replayAnim = "inProgress"
+
+
+    exportRoot.initBanner = function (data) {
+
+        exportRoot.isReplay = false;
+        exportRoot.shadowReplay = false;
+
+        Object.keys = function(obj) {
+            var keys = [];
+
+            for (var i in obj) {
+                if (obj.hasOwnProperty(i)) {
+                    keys.push(i);
+                }
+            }
+            return keys
+        }
+        var keys = Object.keys(data)
+
+        for (var i in keys) {
+            var id = keys[i].substr(0, 4);
+            if (id == "head") {
+                exportRoot['' + keys[i]] = new Array()
+                exportRoot.fillHead(data[keys[i]], exportRoot['' + keys[i]])
+            } else if (id == "word") {
+                exportRoot['' + keys[i]] = new Array()
+                exportRoot.fillDocument(data[keys[i]], exportRoot['' + keys[i]])
+            } else if (id == "CTA" && data[keys[i]].length > 1) {
+                exportRoot.fillCta(data[keys[i]])
+            } else if (id == "CTAa") {
+                mc.cta.arrow.visible = data[keys[i]][0]
+                mc.cta.arrow.x += data[keys[i]][1]
+                mc.cta.arrow.y += data[keys[i]][2]
+            }
+        }
+    }
+
+
+    exportRoot.fillHead = function (txtDetails, aVar) {
+        var text = txtDetails[0]
+        var size = txtDetails[1]
+        var xOffset = txtDetails[2]
+        var yOffset = txtDetails[3]
+        var lineSpacing = txtDetails[4]
+        var lineWidth = txtDetails[5]
+        var align = txtDetails[6]
+
+        var aSentenceLine = this.getTheSentences(text, size, xOffset, yOffset, lineSpacing, lineWidth, align)
+
+        for (var i = 0; i < aSentenceLine.length; i++) {
+            var mc = new createjs.MovieClip();
+            mc.y = (i * parseInt(lineSpacing))
+            mc.y += yOffset
+            mc.y += parseInt(size)
+            mc.x += xOffset
+
+            var txtWidth = 0
+            for (var j = 0; j < aSentenceLine[i].length; j++) {
+                var text = new createjs.Text(aSentenceLine[i][j].txt, "normal " + size + " Segoe Pro", aSentenceLine[i][j].color);
+                text.textAlign = "Left"
+                text.x = txtWidth
+                text.textBaseline = "alphabetic"
+                txtWidth += (text.getTransformedBounds().width)
+                mc.addChild(text)
+            }
+            if (align == "center") mc.x = mc.x - mc.getTransformedBounds().width / 2
+            if (align == "right") mc.x = mc.x - mc.getTransformedBounds().width
+            if (mc.getTransformedBounds()) mc.cache(mc.getTransformedBounds().width*-1,mc.getTransformedBounds().height*-1,mc.getTransformedBounds().width*2,mc.getTransformedBounds().height*2,1.8)
+            exportRoot.mainMC.txt.addChild(mc);
+            aVar.push(mc)
+        }
+    }
+    exportRoot.fillDocument = function (txtDetails, aVar) {
+        var text = txtDetails[0]
+        var size = txtDetails[1]
+        var xOffset = txtDetails[2]
+        var yOffset = txtDetails[3]
+        var lineSpacing = txtDetails[4]
+        var lineWidth = txtDetails[5]
+        var align = txtDetails[6]
+
+        var aSentenceLine = this.getTheSentences(text, size, xOffset, yOffset, lineSpacing, lineWidth, align)
+
+        for (var i = 0; i < aSentenceLine.length; i++) {
+            var mc = new createjs.MovieClip();
+            mc.y = (i * parseInt(lineSpacing))
+            mc.y += yOffset
+            mc.y += parseInt(size)
+            mc.x += xOffset
+
+            var txtWidth = 0
+            for (var j = 0; j < aSentenceLine[i].length; j++) {
+                var text = new createjs.Text(aSentenceLine[i][j].txt, "normal " + size + " Segoe Pro", aSentenceLine[i][j].color);
+                text.textAlign = "Left"
+                text.x = txtWidth
+                text.textBaseline = "alphabetic"
+                txtWidth += (text.getTransformedBounds().width)
+                mc.addChild(text)
+            }
+            if (align == "center") mc.x = mc.x - mc.getTransformedBounds().width / 2
+            if (align == "right") mc.x = mc.x - mc.getTransformedBounds().width
+            if (mc.getTransformedBounds()) mc.cache(mc.getTransformedBounds().width*-1,mc.getTransformedBounds().height*-1,mc.getTransformedBounds().width*2,mc.getTransformedBounds().height*2,1.8)
+            exportRoot.mainMC.addChild(mc);
+            aVar.push(mc)
+        }
+    }
+
+
+
+    exportRoot.fillCta = function (txtDetails) {
+        var text = txtDetails[0]
+        var size = txtDetails[1]
+        var xOffset = txtDetails[2]
+        var yOffset = txtDetails[3]
+        var lineSpacing = txtDetails[4]
+        var lineWidth = txtDetails[5]
+        var align = txtDetails[6]
+
+
+        var aSentenceLine = this.getTheSentences(text, size, xOffset, yOffset, lineSpacing, lineWidth, align)
+
+        for (var i = 0; i < aSentenceLine.length; i++) {
+            var mc = new createjs.MovieClip();
+            mc.y = (i * parseInt(lineSpacing))
+            mc.y += yOffset
+            mc.y += (parseInt(size) * 0.90)
+            mc.x += xOffset
+
+            var txtWidth = 0
+            for (var j = 0; j < aSentenceLine[i].length; j++) {
+                var text = new createjs.Text(aSentenceLine[i][j].txt, "normal " + size + " Segoe Pro", aSentenceLine[i][j].color);
+                text.textAlign = "Left"
+                text.x = txtWidth
+                text.textBaseline = "alphabetic"
+                txtWidth += (text.getTransformedBounds().width)
+                mc.addChild(text)
+            }
+            if (align == "center") mc.x = mc.x - mc.getTransformedBounds().width / 2
+            if (align == "right") mc.x = mc.x - mc.getTransformedBounds().width
+            mc.y = mc.y - (mc.getTransformedBounds().height / 2)
+            if (mc.getTransformedBounds()) mc.cache(mc.getTransformedBounds().width*-1,mc.getTransformedBounds().height*-1,mc.getTransformedBounds().width*2,mc.getTransformedBounds().height*2,1.5)
+            this.mainMC.txtCta.addChild(mc);
+        }
+    }
+
+    exportRoot.getTheSentences = function (text, size, xOffset, yOffset, lineSpacing, lineWidth, align) {
+        var sentences = new Array()
+        var aSentenceLine = new Array()
+        var aStr = text.substr(0);
+        sentences = aStr.split("|");
+        var lastColor = "#000000"
+        // Figure out the setence lines
+
+        for (var i = 0; i < sentences.length; i++) {
+            var aS = sentences[i].substr(0);
+            var aSplit = new Array()
+            aSplit = aS.split("<");
+            aSplit = aSplit.filter(Boolean)
+            var wholeSentence = new Array()
+
+            for (var j = 0; j < aSplit.length; j++) {
+
+                var checkColor = aSplit[j].indexOf("#")
+                var color = (checkColor == -1) ? lastColor : aSplit[j].substr(0, 7);
+                lastColor = color
+                var txt = (checkColor == -1) ? aSplit[j].substr(0) : aSplit[j].substr(8);
+                var subSentence = {
+                    color: color,
+                    txt: txt
+                };
+                wholeSentence.push(subSentence)
+            }
+            aSentenceLine.push(wholeSentence)
+        }
+        return aSentenceLine
+    }
+
+
+    var mc = exportRoot.mainMC
+    var screen = mc.screen
+    var shadow = mc.shadow
+    var date = mc.date
+    var teams = mc.teams
+    var shadow_1 = mc.shadow_2
+    var shadow_2 = mc.shadow_3
+    /*mc.cta.alpha=0
+    mc.replay_btn.alpha=0*/
+
+    exportRoot.runBanner = function() {
+
+        exportRoot.tl1 = new gsap.timeline();
+
+        //Launch a customer-facing
+        exportRoot.tl1.from(exportRoot.headline1, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.4")
+            .from(exportRoot.headline2, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger: 0.1}, "+=0.1");
+
+        exportRoot.tl1.from(exportRoot.headline3, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1");
+
+
+        exportRoot.tl1.from(screen, 1.4, {  x: "+=250",y: "+=250",	ease:Power4.easeOut}, "-=1");
+        exportRoot.tl1.from(date, 1.4, {  x: "+=250",y: "+=250",	ease:Power4.easeOut}, "-=1.4");
+
+        exportRoot.tl1.to(exportRoot.headline1, 0.1, {alpha: 0, ease:Power2.easeInOut, stagger:0.1}, "+=0.4")
+            .to(exportRoot.headline2, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<")
+            .to(exportRoot.headline3, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+
+        //booking site
+        exportRoot.tl1.from(exportRoot.headline4, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "-=0.1")
+            .from(exportRoot.headline5, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1");
+
+        exportRoot.tl1.to(screen, 0.1, {ease:Power4.easeInOut,onStart:function(){date.gotoAndPlay(0);}}, "-=0.1");
+
+        exportRoot.tl1.to(exportRoot.headline4, 0.1, {alpha: 0, ease:Power4.easeInOut}, "+=1.4")
+            .to(exportRoot.headline5, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+
+        //manage appointments
+        exportRoot.tl1.from(exportRoot.headline6, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "<");
+        exportRoot.tl1.from(exportRoot.headline7, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1");
+
+        exportRoot.tl1.to(screen, 1.4, {  x: "-=6",y: "+=13",	ease:Power2.easeInOut}, "-=1.4");
+        exportRoot.tl1.from(teams, 1.4, {  x: "+=250",y: "+=250",	ease:Power2.easeInOut}, "<");
+        exportRoot.tl1.from(shadow_2, 1.4, {  x: "+=250",y: "+=250",	ease:Power2.easeInOut}, "<");
+        exportRoot.tl1.from(shadow_1, 1.4, {  x: "+=250",y: "+=250",	ease:Power2.easeInOut}, "<");
+
+        exportRoot.tl1.to(screen, 0.1, {ease:Power4.easeInOut,onStart:function(){date.gotoAndPlay(47);}}, "-=0.1");
+
+        exportRoot.tl1.to(exportRoot.headline6, 0.1, {alpha: 0, ease:Power4.easeInOut}, "+=1")
+            .to(exportRoot.headline7, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+
+        //virtually with
+        exportRoot.tl1
+            .from(exportRoot.headline8, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "-=0.1")
+            .from(exportRoot.headline9, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1");
+
+        exportRoot.tl1.to(exportRoot.headline8, 0.1, {alpha: 0, ease:Power4.easeInOut}, "+=0.5")
+            .to(exportRoot.headline9, 0.1, {alpha: 0, ease:Power4.easeInOut}, "-=0.1");
+
+
+        //Microsoft Teams
+        exportRoot.tl1.from(exportRoot.headline10, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "-=0.1")
+            .from(exportRoot.headline11, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1")
+            .to(teams.VCall, 0.8, {  alpha: 1,	ease:Power2.easeInOut}, "-=0")
+            .to(date, 0.8, {  alpha: 0,	ease:Power2.easeInOut}, "<");
+
+        exportRoot.tl1.to(exportRoot.headline10, 0.1, {alpha: 0, ease:Power4.easeInOut}, "+=0.5")
+            .to(exportRoot.headline11, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+        //Simplify scheduling
+        exportRoot.tl1.from(exportRoot.headline12, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "-=0.1")
+            .from(exportRoot.headline13, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1");
+
+        exportRoot.tl1.to(exportRoot.headline12, 0.1, {alpha: 0, ease:Power4.easeInOut}, "+=0.5")
+            .to(exportRoot.headline13, 0.1, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+        //with Bookings +
+        exportRoot.tl1.from(exportRoot.headline14, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "<")
+            .from(exportRoot.headline15, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1")
+            .from(exportRoot.headline16, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1")
+            .from(exportRoot.headline17, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1")
+            .from(exportRoot.headline18, 0.1, {alpha: 0, ease:Power4.easeInOut, stagger:0.1}, "+=0.1")
+        exportRoot.tl1.to(exportRoot.headline14, 0.6, {alpha: 0, ease:Power4.easeInOut}, "+=1.2")
+            .to(exportRoot.headline15, 0.6, {alpha: 0, ease:Power4.easeInOut}, "<")
+            .to(exportRoot.headline16, 0.6, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+        //Microsoft Teams​
+        exportRoot.tl1.to(exportRoot.headline17, 0.6, {alpha: 0, ease:Power4.easeInOut}, "<")
+            .to(exportRoot.headline18, 0.6, {alpha: 0, ease:Power4.easeInOut}, "<");
+
+        //final frame
+        exportRoot.tl1.to(teams, 1.4, {scale: 0.39, x: "+=11",y: "-=10", ease:Power2.easeInOut}, "-=1");
+        exportRoot.tl1.to(shadow_1, 1.4, {scale: 0.39, x: "+=11",y: "-=10", ease:Power2.easeInOut}, "-=1.4");
+        exportRoot.tl1.to(shadow_2, 1.4, {scale: 0.39, x: "+=11",y: "-=10", ease:Power2.easeInOut}, "-=1.4");
+        exportRoot.tl1.to(screen, 1.4, {scale: 0.39, x: "+=13",y: "-=5", ease:Power2.easeInOut}, "-=1.3");
+
+        exportRoot.tl1.from(exportRoot.headline19, 0.8, { x: "-=100", alpha: 0, ease:Power4.easeOut, stagger:0.1}, "-=0.7")
+            .from(exportRoot.headline20, 0.8, { x: "-=100", alpha: 0, ease:Power4.easeOut, stagger:0.1}, "-=0.7");
+
+
+
+
+        exportRoot.tl1.from([mc.txtCta,mc.cta], 0.7, { alpha: 0, x: "+=100",	ease:Power4.easeOut}, "-=0.6");
+        exportRoot.tl1.from(mc.replay_btn, 0.7, { alpha: 0,ease:Power4.easeOut, onStart:function(){exportRoot.isReplay = true;}}, "-=.6");
+
+        exportRoot.tl1.pause();
+
+        mc.logo_intro.gotoAndPlay(1)
+
+    }
+
+
+
+}
